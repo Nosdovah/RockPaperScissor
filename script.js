@@ -10,11 +10,8 @@ function getComputerChoice(arrChoice) {
 
 function Result (playerChoice,compChoice,arrChoice) {
     let result = ""
-    if( (playerChoice == null || playerChoice == undefined) || (compChoice == null || compChoice == undefined)) {
+    if( (playerChoice == null || playerChoice == undefined) || (compChoice == null || compChoice == undefined) || (arrChoice.includes(playerChoice) == false) ) {
         return result = "invalid choice"
-    }
-    if(arrChoice.includes(playerChoice) == false) {
-        return result = "invalid player choice";
     }
     //Rock
 
