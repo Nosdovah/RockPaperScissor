@@ -99,7 +99,6 @@ button.forEach(node => node.addEventListener(('click'), function(element) {
 
 playRound(5)
 
-
     /*Display the running score, and announce a winner of the game once one player reaches 5 points. */
   
 }))
