@@ -1,108 +1,118 @@
 //Choosing for player choice based on keydown eventListener
 
-let gameplay 
+let gameplay
 let counter = 0;
 let playerWin = 0;
 let compWin = 0
 
+const resultContent = document.querySelector('.ResultContent')
+const finalContent = document.querySelector('.FinalContent')
+let buttonDisable = document.getElementsByTagName('button').disabled
+buttonDisable = false
+
+
 const button = document.querySelectorAll('.RPS_Div button')
-button.forEach(node => node.addEventListener(('click'), function(element) {
-    
+button.forEach(node => node.addEventListener(('click'), function (element) {
+
     //Define player choice 
-    let playerChoice = (element.target.classList.value)
-    
+    let playerChoice = element.currentTarget.classList.value
+
     function getComputerChoice(arrChoice) {
         let compChoice = ""
-        if(arrChoice.length <= 1) {
-            return "choice not valid"
+        if (arrChoice.length <= 1) {
+            return
         }
         compChoice = Math.floor(Math.random() * arrChoice.length)
         return arrChoice[compChoice];
     }
 
-    function Result (playerChoice,compChoice,arrChoice) {
-        let playerWin 
-        if( (playerChoice == null || playerChoice == undefined) || (compChoice == null || compChoice == undefined) || (arrChoice.includes(playerChoice) == false) ) {
-            console.log("invalid choice")
+    function Result(playerChoice, compChoice, arrChoice) {
+        let playerWin
+        if ((playerChoice == null || playerChoice == undefined) || (compChoice == null || compChoice == undefined) || (arrChoice.includes(playerChoice) == false)) {
             return
-        }else{
-                if(playerChoice == compChoice) {
-                    console.log("It's a Tie!")
-                    compWin--
-                    return 
+        } else {
+            if (playerChoice == compChoice) {
+                resultContent.textContent = "It's a Tie"
+                compWin--
+                return
+            }
+            if (playerChoice == "Rock") {
+                //Rock
+                if (compChoice == "Scissors") {
+                    resultContent.textContent = `You Win! ${compChoice} beats ${playerChoice}`
+                    return playerWin = true
                 }
-                if(playerChoice == "Rock") {
-                    //Rock
-                    if(compChoice == "Scissors") {
-                        console.log(`You Win! ${compChoice} beats ${playerChoice}`)
-                        return playerWin = true
-                    }
-                    if(compChoice == "Paper"){
-                        console.log(`You Lose! ${playerChoice} beats ${compChoice}`)
-                        return playerWin = false
-                    }
-                }else if(playerChoice == "Paper") {
-                    //Paper
-                    if(compChoice =="Scissors") {
-                        console.log(`You Lose! ${compChoice} beats ${playerChoice}`)
-                        return playerWin = false
-                    }
-                    if(compChoice == "Rock"){
-                        console.log(`You Win! ${playerChoice} beats ${compChoice}`)
-                        return playerWin = true
-                    }
-                }else if(playerChoice == "Scissors") {
-                    if(compChoice == "Paper") {
-                        console.log(`You Win! ${playerChoice} beats ${compChoice}`)
-                        return playerWin = true
-                    }
-                    if(compChoice == "Rock"){
-                        console.log(`You Lose! ${compChoice} beats ${playerChoice}`)
-                        return playerWin = false
-                    }
+                if (compChoice == "Paper") {
+                    resultContent.textContent = `You Lose! ${playerChoice} beats ${compChoice}`
+                    return playerWin = false
                 }
+            } else if (playerChoice == "Paper") {
+                //Paper
+                if (compChoice == "Scissors") {
+                    resultContent.textContent = `You Lose! ${compChoice} beats ${playerChoice}`
+                    return playerWin = false
+                }
+                if (compChoice == "Rock") {
+                    resultContent.textContent = `You Win! ${playerChoice} beats ${compChoice}`
+                    return playerWin = true
+                }
+            } else if (playerChoice == "Scissors") {
+                if (compChoice == "Paper") {
+                    resultContent.textContent = `You Win! ${playerChoice} beats ${compChoice}`
+                    return playerWin = true
+                }
+                if (compChoice == "Rock") {
+                    resultContent.textContent = `You Lose! ${compChoice} beats ${playerChoice}`
+                    return playerWin = false
+                }
+            }
         }
         return playerWin
 
     }
 
     function playRound(rounds) {
-        let arrChoice = ["Rock","Paper","Scissors"]
+        let arrChoice = ["Rock", "Paper", "Scissors"]
 
         //Invoke Player choice function here
         let compchoice = getComputerChoice(arrChoice)
         //JANKENPON!
-        const result = Result(playerChoice,compchoice,arrChoice)
+        const result = Result(playerChoice, compchoice, arrChoice)
 
-        if(result) {
+        if (result) {
             playerWin = playerWin + 1
             counter = counter + 1
         }
-        if(!result) {
+        if (!result) {
             compWin = compWin + 1
             counter = counter + 1
         }
-        if(counter == rounds) {
-            if(playerWin == compWin) {
-                window.alert("IT'S A TIE!")
+        if (counter == rounds) {
+            if (playerWin == compWin) {
+                finalContent.textContent = "IT'S A TIE!"
             }
-            if(playerWin > compWin) {
-                window.alert("PLAYER WINS")
+            if (playerWin > compWin) {
+                finalContent.textContent = "PLAYER WINS"
             }
-            if(playerWin < compWin) {
-                window.alert("AI WINS")
+            if (playerWin < compWin) {
+                finalContent.textContent = "AI WINS"
             }
 
+        }
+
+        if (counter == 5) {
+            element.currentTarget.removeEventListener('click',node)
+            return
         }
 
     }
 
-playRound(5)
+    playRound(5)
 
     /*Display the running score, and announce a winner of the game once one player reaches 5 points. */
-  
+
 }))
- 
+
 
 
 
