@@ -1,5 +1,3 @@
-//Choosing for player choice based on keydown eventListener
-
 let gameplay
 let counter = 0;
 let playerWin = 0;
@@ -101,8 +99,10 @@ button.forEach(node => node.addEventListener(('click'), function (element) {
         }
 
         if (counter == 5) {
-            element.currentTarget.removeEventListener('click',node)
-            return
+            setTimeout(function(){
+                window.location.reload();
+             }, 500);
+        
         }
 
     }
