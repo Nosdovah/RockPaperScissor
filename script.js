@@ -87,10 +87,10 @@ button.forEach(node => node.addEventListener(('click'), function(element) {
                 window.alert("IT'S A TIE!")
             }
             if(playerWin > compWin) {
-                Window.alert("PLAYER WINS")
+                window.alert("PLAYER WINS")
             }
             if(playerWin < compWin) {
-                Window.alert("AI WINS")
+                window.alert("AI WINS")
             }
 
         }
