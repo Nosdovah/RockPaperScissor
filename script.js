@@ -114,8 +114,4 @@ button.forEach(node => node.addEventListener(('click'), function (element) {
 }))
 
 
-
-
-
-
 // let rounds = prompt("How many rounds of RPS do you wanna play ?",1)
